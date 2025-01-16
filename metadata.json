@@ -1,19 +1,11 @@
 [
     {
-        "file_name": "06000.avi",
+        "file_name": "0600.avi",
         "extension": ".avi",
         "has_audio": true,
         "frame_rate": 6.0,
         "duration": "1時間9分54秒",
         "bit_rate": "633450"
-    },
-    {
-        "file_name": "0900.avi",
-        "extension": ".avi",
-        "has_audio": true,
-        "frame_rate": 7.0,
-        "duration": "10秒",
-        "bit_rate": "581617"
     },
     {
         "file_name": "0700.avi",
@@ -30,5 +22,13 @@
         "frame_rate": 6.0,
         "duration": "1時間9分55秒",
         "bit_rate": "612052"
+    },
+    {
+        "file_name": "0900.avi",
+        "extension": ".avi",
+        "has_audio": true,
+        "frame_rate": 7.0,
+        "duration": "10秒",
+        "bit_rate": "581617"
     }
 ]

@@ -15,11 +15,15 @@ def list_files(directory_path: str) -> List[str]:
     """指定したディレクトリから指定した拡張子のファイル一覧を取得"""
     try:
         with os.scandir(directory_path) as entries:
-            return [
+            filtered_files = [
                 entry.path
                 for entry in entries
                 if entry.is_file() and entry.name.lower().endswith(SUPPORTED_EXTENSIONS)
             ]
+
+            # ファイル名でソートして返す
+            return sorted(filtered_files, key=lambda x: os.path.basename(x).lower())
+
     except FileNotFoundError:
         print(f"ディレクトリ内にファイルがありません: {directory_path}")
     except PermissionError:
