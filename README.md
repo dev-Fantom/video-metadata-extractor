@@ -84,12 +84,12 @@ JSONデータには、各動画ファイルの詳細（ファイル名、拡張�
 
 EN
 
-- Ensure that the required `ffmpeg` Python bindings are installed.
+- Make sure that `ffmpeg` is installed.
 - The directory path and output file path are hardcoded in the script. You can modify the variables `DIRECTORY_PATH` and `OUTPUT_JSON` as needed.
 
 JP
 
-- 必要な`ffmpeg`のPythonバインディングがインストールされていることを確認してください。
+- `ffmpeg`がインストールされていることを確認してください。
 - スクリプト内のディレクトリパスと出力ファイルパスは固定値でスクリプト内に設定されています。必要に応じて、`DIRECTORY_PATH` と `OUTPUT_JSON` の値を変更してください。
 
 ## Author / 作成者
