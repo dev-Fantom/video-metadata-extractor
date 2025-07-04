@@ -1,7 +1,8 @@
 import json
 import os
+
 import ffmpeg
-from typing import List, Dict, Any, Optional
+from tqdm import tqdm
 
 # 対象のディレクトリのパスを指定
 DIRECTORY_PATH = "/DIR/PATH"
@@ -11,7 +12,7 @@ OUTPUT_JSON = "metadata.json"
 SUPPORTED_EXTENSIONS = (".mp4", ".mkv", ".avi", ".mov", ".flv")
 
 
-def list_files(directory_path: str) -> List[str]:
+def list_files(directory_path: str) -> list[str]:
     """指定したディレクトリから指定した拡張子のファイル一覧を取得"""
     try:
         with os.scandir(directory_path) as entries:
@@ -31,7 +32,7 @@ def list_files(directory_path: str) -> List[str]:
     return []
 
 
-def calculate_frame_rate(stream: Dict[str, Any]) -> Optional[float]:
+def calculate_frame_rate(stream: dict) -> float | None:
     """動画のストリームからフレームレートを計算"""
     r_frame_rate = stream.get("r_frame_rate")
     if not r_frame_rate:
@@ -43,7 +44,7 @@ def calculate_frame_rate(stream: Dict[str, Any]) -> Optional[float]:
         return None
 
 
-def format_duration(duration: Optional[float]) -> str:
+def format_duration(duration: float | None) -> str:
     """再生時間を 時:分:秒 形式に整形"""
     if not duration:
         return "Unknown"
@@ -57,7 +58,7 @@ def format_duration(duration: Optional[float]) -> str:
     return f"{seconds}秒"
 
 
-def extract_metadata(entry_file: str) -> Optional[Dict[str, Any]]:
+def extract_metadata(entry_file: str) -> dict | None:
     """動画ファイルからメタデータを抽出"""
     try:
         # ffmpegでファイルのメタデータを取得
@@ -100,17 +101,20 @@ def extract_metadata(entry_file: str) -> Optional[Dict[str, Any]]:
     return None
 
 
-def get_metadata(directory_path: str) -> List[Dict[str, Any]]:
+def get_metadata(directory_path: str) -> list[dict]:
     """指定したディレクトリ内のすべてのファイルのメタデータを取得"""
     entry_files = list_files(directory_path)
-    return [
-        metadata
-        for entry_file in entry_files
-        if (metadata := extract_metadata(entry_file))
-    ]
+    result = []
+
+    # tqdmで進捗バーを表示
+    for entry_file in tqdm(entry_files, desc="メタデータ取得中", unit="ファイル"):
+        if metadata := extract_metadata(entry_file):
+            result.append(metadata)
+
+    return result
 
 
-def save_to_json(file_path: str, data: List[Dict[str, Any]]) -> None:
+def save_to_json(file_path: str, data: list[dict]) -> None:
     """メタデータをJSONファイルに保存"""
     try:
         with open(file_path, "w", encoding="utf-8") as json_file:
