@@ -1,6 +1,8 @@
 import json
 import os
+
 import ffmpeg
+from tqdm import tqdm
 
 # 対象のディレクトリのパスを指定
 DIRECTORY_PATH = "/DIR/PATH"
@@ -102,11 +104,14 @@ def extract_metadata(entry_file: str) -> dict | None:
 def get_metadata(directory_path: str) -> list[dict]:
     """指定したディレクトリ内のすべてのファイルのメタデータを取得"""
     entry_files = list_files(directory_path)
-    return [
-        metadata
-        for entry_file in entry_files
-        if (metadata := extract_metadata(entry_file))
-    ]
+    result = []
+
+    # tqdmで進捗バーを表示
+    for entry_file in tqdm(entry_files, desc="メタデータ取得中", unit="ファイル"):
+        if metadata := extract_metadata(entry_file):
+            result.append(metadata)
+
+    return result
 
 
 def save_to_json(file_path: str, data: list[dict]) -> None:
