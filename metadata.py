@@ -66,6 +66,13 @@ def extract_metadata(entry_file: str) -> dict | None:
         format_info = probe.get("format", {})
         streams = probe.get("streams", [])
 
+        # 動画ストリームを取得
+        video_stream = next(
+            (s for s in streams if s.get("codec_type") == "video"), None
+        )
+        # コーデック名を取得
+        video_codec = video_stream.get("codec_name") if video_stream else None
+
         # 音声ストリームの有無を確認
         has_audio = any(stream["codec_type"] == "audio" for stream in streams)
 
@@ -89,6 +96,7 @@ def extract_metadata(entry_file: str) -> dict | None:
         return {
             "file_name": os.path.basename(entry_file),
             "extension": os.path.splitext(entry_file)[1].lower(),
+            "video_codec": video_codec or "Unknown",
             "has_audio": has_audio,
             "frame_rate": frame_rate,
             "duration": format_duration(duration),
