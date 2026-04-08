@@ -10,21 +10,21 @@ JP
 
 ## Environment / 環境
 
-* Python 3.12.0
+* Python 3.12.13
 * ffmpeg-python 0.2.0
 
 ## Usage / 使い方
 
 EN
 
-Install Library form requirements.txt.
+Sync dependencies with `uv`.
 
 JP
 
-requirements.txtからライブラリをインストール
+`uv` で依存関係を同期
 
 ```shell
-pip install -r requirements.txt
+uv sync
 ```
 
 ## Sample usage / 実行方法
