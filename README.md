@@ -17,14 +17,14 @@ JP
 
 EN
 
-Install Library form requirements.txt.
+Sync dependencies with `uv`.
 
 JP
 
-requirements.txtからライブラリをインストール
+`uv` で依存関係を同期
 
 ```shell
-pip install -r requirements.txt
+uv sync
 ```
 
 ## Sample usage / 実行方法
