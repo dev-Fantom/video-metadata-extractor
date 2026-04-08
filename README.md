@@ -10,7 +10,7 @@ JP
 
 ## Environment / 環境
 
-* Python 3.12.0
+* Python 3.12.13
 * ffmpeg-python 0.2.0
 
 ## Usage / 使い方
